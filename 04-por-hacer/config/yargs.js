@@ -22,7 +22,7 @@ const argv = require('yargs')
     .command('update', "update TODO in database.", opttionsU)
     .command('list', "list TODO in database.")
     .help()
-    .argv; // Este argv deve ir siempre al final para poder hacer uso de las propiedades de el array _
+    .argv; // Este argv deve ir siempre al final para poder hacer uso de las propiedades de el array _ -> investigar esta convencion
 
 
 module.exports = {

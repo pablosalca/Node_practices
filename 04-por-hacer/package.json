@@ -9,7 +9,6 @@
     "author": "pablo zapeta",
     "license": "ISC",
     "dependencies": {
-        "chalk": "^4.1.0",
         "colors": "^1.4.0",
         "yargs": "^16.2.0"
     }
