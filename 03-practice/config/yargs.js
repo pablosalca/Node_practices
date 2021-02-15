@@ -1,21 +1,31 @@
-const options = {
-    base: {
-        demand: true,
-        alias: 'b'
-    },
-    limit: {
-        alias: 'l',
-        default: 10
-    }
-}
-
 const argv = require('yargs')
-    .command('list', "print values with limit in custom value", options)
-    .command('generate', "generate file multiplication table with custom limit.", options)
-    .help()
-    .argv;
+    .options({
+        'base': {
+            alias: 'b',
+            type: 'number',
+            demandOption: true,
+            describe: 'Es la base de la tabla de multiplicar'
 
+        },
+        'list': {
+            alias: 'l',
+            type: 'boolean',
+            demandOption: false,
+            describe: 'Lista la tabla de multiplicar y la genera'
+        },
+        'until': {
+            alias: 'u',
+            type: 'number',
+            demandOption: false,
+            describe: 'Especifica hasta donde llegara la tabla '
+        }
+    })
+    .check((argv, options) => {
+        if (isNaN(argv.b)) {
+            throw 'la base no es tipo numero'
+        }
+        return true
+    })
+    .argv
 
-module.exports = {
-    argv
-}
+module.exports = argv;

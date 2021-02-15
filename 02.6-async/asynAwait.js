@@ -41,31 +41,28 @@ const getSalary = (id) => {
     })
 }
 
-
 const id = 4;
-// getEmployeed(id)
-//     .then(employee => console.log(employee))
-//     .catch(e => console.log(e));
 
-// getSalary(id)
-//     .then(salary => console.log(salary))
-//     .catch(e => console.log(e));
+//transform to return a promise 
+const getUserInfo = async(id) => {
+    try {
 
+        const employeed = await getEmployeed(id);
+        const salary = await getSalary(id)
+        return `${employeed.Name} ${salary.salary}`;
+    } catch (e) {
+        //the return not is equal 
+        //because redirect to TODO BIEN we need redirect TODO MAL
+        throw e;
+    }
+}
 
-// WORST PRACTICE
-// getEmployeed(id)
-//     .then(employeed => {
-//         getSalary(id).then(salary => {
-//             console.log(employeed, salary);
-//         }).catch(e => console.log(e));
-//     }).catch(e => console.log(e));
-
-//CHAIN PROMAISES
-let Employeedname;
-getEmployeed(id)
-    .then(employeed => {
-        Employeedname = employeed;
-        return getSalary(id)
+getUserInfo(id)
+    .then(msg => {
+        console.log("TODO BIEN");
+        console.log(msg)
     })
-    .then(salary => console.log(Employeedname.Name, salary.salary))
-    .catch(e => console.log(e));
+    .catch(e => {
+        console.log("TODO MAL");
+        console.log(e)
+    })
