@@ -1,4 +1,4 @@
 *node_modules
 *ejemplo1234
 *.vscode
-./06-app-weather\.env
+# ./06-app-weather\.env
