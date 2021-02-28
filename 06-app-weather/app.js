@@ -14,7 +14,6 @@ const main = async() => {
         opt = await inquirerMenu();
         switch (opt) {
             case 1:
-
                 //show messages
                 const arg = await readInput("Ciudad: ");
 
@@ -22,12 +21,15 @@ const main = async() => {
                 const cities = await searchs.cities(arg);
 
                 // select place
-                const selectedId = await listPlaces(cities)
+                const selectedId = await listPlaces(cities);
 
-                const { lat, lng, name } = cities.find(p => p.id === selectedId)
+                if (selectedId === '0') continue;
 
-                const { temp_min, temp_max, desc } = await searchs.weatherPlace(lat, lng)
+                const { lat, lng, name } = cities.find(p => p.id === selectedId);
 
+                //save in db
+                searchs.addHistory(name);
+                const { temp_min, temp_max, desc } = await searchs.weatherPlace(lat, lng);
                 //weather
                 // show results
                 console.clear();
@@ -38,15 +40,19 @@ const main = async() => {
                 console.log('Mínima:', temp_max);
                 console.log('Maxima:', temp_min);
                 console.log('descripción:', desc.green);
-
             case 2:
+                searchs.historyCapitalize.forEach((place, i) => {
+                    const idx = `${i=i+1}.`.green
+                    console.log(`${idx} ${place}`);
+                })
+
+                // searchs.readDb();
                 break
         }
         if (opt !== 0) await pause();
     } while (opt !== 0);
-
 }
 
-// console.log(process.env);
+// console.log(process.env.MAPBOX_KEY);
 
 main();
